@@ -1,0 +1,45 @@
+///euler 56
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    setlocale (LC_ALL, "rus");
+    int a, b, z=100, k, n=1, f=0, sum=0;
+    unsigned long long int  v, multi[z]; //18 446 744 073 709 551 615 - макс. (20 цифр)
+        multi[0]=1;
+        multi[1]=0; multi[2]=0; multi[3]=0; multi[4]=0; multi[5]=0; multi[6]=0; multi[7]=0; multi[8]=0; multi[9]=0; multi[10]=0; multi[11]=0; multi[12]=0; multi[13]=0; multi[14]=0; multi[15]=0; ///если число очень большое
+        for (a=99; a>1; a--) {  ///число
+            //cout << endl << endl << a << ":  ";
+            for (b=99; b>0; b--) {   ///степень
+                multi[0]=1;
+                for (k=b; k>0; k--) {   ///чтобы возвести в степень мы переумножаем число  a  k раз
+                    for (n=0; n<=15; n++) multi[n]*=a;  ///умножаем каждую часть числа (массивы)
+    
+                    ///если число большое:
+                    for (n=0; n<=15; n++) {
+                        if (multi[n] > 100000000000000000) { ///10 в 17-ой степени
+                            multi [n+1] += multi[n]/100000000000000000; ///делим и записываем большие числа по частям в массивы
+                            multi[n]=multi[n]%100000000000000000;
+                        }
+
+                    }
+                }
+                //cout << multi [12];
+                for (n=0; n<=15; n++) {   ///находим сумму цифр числа
+                    if (multi[n]!=0) ; {
+                        for (multi[n]; multi[n]>0; multi [n]) {
+                            sum += multi[n] % 10;
+                            multi[n] /= 10;
+                        }
+                    }
+                }
+                //cout << sum << " " ;
+                if (sum>f) f=sum; ///находим наибольшее из сумм цифр чисел
+                sum=0;
+            }
+        }
+    cout << endl << endl << "максимальная сумма цифр: " << f << endl << endl ;
+    return 0;
+}
