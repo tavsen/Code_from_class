@@ -1,0 +1,70 @@
+//euler 52
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+int x, chislo, chislo2, k, i, n, m, r, t;
+int num [15];
+int num2 [15];
+int order [15];
+int order2 [15];
+
+for (x=1; x>0; x++) {
+    i=0;                             //  кол-во
+    k=0;
+    m=0;                             //  цифр в числах
+    chislo=x*2;
+        for (chislo; chislo>0; chislo) {
+            i++;                     // кол-во цифр
+            num[i] = chislo % 10;   ///записываем цифры числа (x*2) в массив
+            chislo /= 10;
+        }
+        m=0;
+        for (n=0; n<10; n++) {
+            for (r=i; r>0; r--) {
+                if  (num[r]==n) {
+                m++;
+                order[m] = n;       ///сортируем массив
+                }
+            }
+        }
+
+        for (t=3; t<=6; t++) {           ///перебираем множетели цифр
+            m=0;
+            k=0;
+            chislo2 = x*t;
+            for (chislo2; chislo2>0; chislo2) {
+                k++;                     //кол-во цифр
+                num2[k] = chislo2 % 10;  ///записываем цифры числа в массив
+                chislo2 /= 10;
+        }
+            if (k!=i) break; ///сравниваем кол-во цифр в массивах
+
+
+            for (n=0; n<10; n++) {
+                for (r=k; r>0; r--) {
+                    if  (num2[r]==n) {
+                        m++;
+                        order2[m] = n;      ///сортируем массив
+                    }
+                }
+            }
+
+            if (k==i) {
+                for (k; k>0; k--) {  ///сраввниваем массивы
+                    if (order[k]!=order2[k]) {
+                    t=7;
+                    break;
+                    }
+                }
+            }
+            if (t==6) {        ///выводим нужный x
+                cout << x << endl;
+                return 0;
+            }
+        }
+}
+    return 0;
+}
